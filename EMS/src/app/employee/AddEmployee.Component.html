@@ -1,0 +1,88 @@
+﻿<div class="container">
+    <h3>Forms</h3>
+    <form #form="ngForm" (submit)="submitForm(form)">
+
+        <div class="form-group" [class.has-error]="code.dirty && code.invalid">
+            <label for="EmpCode">Employee Code</label>
+            <input required pattern="^E.*" #code="ngModel" id="EmpCode" type="text" class="form-control" name="EmpCode" [(ngModel)]="model.code" />
+            <div *ngIf="code.dirty && code.invalid" class="alert alert-danger">Employee Code is reruired and must be start with E letter. </div>
+        </div>
+
+
+        <div class="form-group" [class.has-error]="firstName.dirty && firstName.invalid">
+            <label for="firstName">First Name</label>
+            <input required  #firstName="ngModel" id="firstName" type="text" class="form-control" name="firstName" [(ngModel)]="model.firstName" />
+            <div *ngIf="firstName.dirty && firstName.invalid" class="alert alert-danger">First Name is reruired and must be start with P letter. </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label for="lastNameId" class="control-label">Last Name</label>
+            <input #lastName="ngModel" id="lastNameId" type="text" class="form-control" name="lname" [(ngModel)]="model.lastName" />
+
+        </div>
+
+
+        <!--<div class="checkbox">
+            <label>
+                <input type="checkbox" name="isFulltime" [(ngModel)]="model.isFullTime" />Full Time Employee
+            </label>
+        </div>-->
+
+
+        <label>Gender</label>
+
+        <div class="radio">
+            <label>
+                <input #gender="ngModel" type="radio" name="gender" value="Male" checked [(ngModel)]="model.gender" /> Male
+            </label>
+        </div>
+        <div class="radio">
+            <label>
+                <input type="radio" name="gender" value="Female" [(ngModel)]="model.gender" /> Female
+            </label>
+        </div>
+
+
+        <div class="form-group" [class.has-error]="hasPrimaryLanguageError">
+            <label for="firstNameId">Primary Language</label>
+            <select #PrimaryLanguage class="form-control" name="primaryLanguage" [(ngModel)]="model.primaryLanguage">
+                <option selected value="default">Select a language</option>
+                <option *ngFor="let lang of languages">{{lang}}</option>
+            </select>
+        </div>
+
+
+        <div class="form-group" [class.has-error]="annualSalary.dirty && annualSalary.invalid">
+            <label for="Salary">Annual Salary</label>
+            <input type="number" class="form-control" required #annualSalary="ngModel" id="Salary" name="Salary" [(ngModel)]="model.annualSalary" />
+            <div *ngIf="annualSalary.dirty && annualSalary.invalid" class="alert alert-danger">Salary is reruired.</div>
+        </div>
+
+        <div class="form-group" [class.has-error]="dateOfBirth.dirty && dateOfBirth.invalid">
+            <label for="firstNameId">Date Of Birth</label>
+            <input #dateOfBirth type="date" class="form-control" [(ngModel)]="model.dateOfBirth" name="dateOfBirth" />
+            <div *ngIf="dateOfBirth.dirty && dateOfBirth.touched" class="alert alert-danger">Date Of Birth is required.</div>
+        </div>
+
+        <button class="btn btn-primary" type="submit" [disabled]="form.invalid"> {{button}} </button>
+        <div *ngIf='isShowLoader'>
+            <img [src]='loaderImagePath' />
+
+        </div>
+    </form>
+
+   
+
+</div>
+
+<!--Model:{{model | json}}
+ Angular : {{form.value | json}}
+{{form.pristine}}
+     #firstName Templete refrence variable
+     -->
+<!--<h3>Classes</h3>
+<h4>{{firstName.className}}</h4>
+<h4>{{firstName.invalid}}</h4>
+<h4>{{firstName.dirty}}</h4>-->

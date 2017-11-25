@@ -1,0 +1,116 @@
+﻿
+<div>
+    {{pageHeader?pageHeader:'No Header'}}
+    <img src='{{imagePath}}' />Interpolation
+    <img [src]='imagePath' />its call Property Binging
+    <img bind-src='imagePath' />   its call Property Binging // Canonical form
+  
+        <h3> {{'Full Name=' + getfullName()}}</h3>
+
+    <button class='colorClass' [disabled]='isDisabled'>Click Me</button>
+
+    <div>{{badHtml}}</div>
+    <div bind-innerHtml='badHtml'></div>
+    <br />
+
+</div>
+
+
+
+
+<button disabled='{{isDisabled }}'>Click Me</button>  will not work -- need to use Propert Binding
+
+    Interpolation and Property Binging both are flow a data value in one direction i.e. from Component calss property to HTML element properrt.
+
+
+<br />
+<br />
+
+
+
+
+
+<table>
+    <tr><td attr.colspan="{{columSpan}}">Employee Details</td></tr>
+    <tr>
+        <td>First Name</td>
+        <td>{{firstName}}</td>
+    </tr>
+    <tr>
+        <td>Last Name</td>
+        <td>{{lastName}}</td>
+    </tr>
+    <tr *ngIf='showDetails'>
+        <td>Age</td>
+        <td>{{age}}</td>
+    </tr>
+    <tr *ngIf='showDetails'>
+        <td>From</td>
+        <td>{{city}}</td>
+    </tr>
+    <!--<tr>
+        <td colspan="2">
+            <button (click)='onClick()' [class]='classToApply'>Click Me</button>
+            <button on-click='onClick()' class="colorClass" [class.bold]='isBold'>Click Me</button>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <button style="color:forestgreen" [style.font-weight]="isBold ? 'bold' : 'normal'">Button</button>
+            <button style="color:forestgreen" [style.font-size.px]='fontSize'>Button</button>
+        </td>
+    </tr>-->
+</table>
+<br />
+<button (click)='toggeleDetails()' [class]='classToApply'>{{showDetails? 'Hide' : 'Show' }}Details</button>
+<br />
+Two Way Binding-
+<br />
+Name : <!--<input [value]='name' (input)='name=$event.target.value'/>--> <input [(ngModel)]='name' />
+<br />
+You Entered: {{name}}
+
+
+
+
+<br />
+<br />
+
+
+
+
+
+
+<table>
+    <thead>
+        <tr>
+            <td>Code</td>
+            <td>Name</td>
+            <td>Gender</td>
+            <td>Annual Salary</td>
+            <td>DOB</td>
+            <td>index</td>
+            <td>First</td>
+            <td>Last</td>
+            <td>Even</td>
+            <td>Odd</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let emp of employeeList;trackBy:trackByEmpCode; let i=index; let isFirst=first; let isLast=last; let isEven=even; let isOdd=odd">
+            <td>{{emp.code}}</td>
+            <td>{{emp.name | uppercase | employeeTitle:emp.gender}}</td>
+            <td>{{emp.gender}}</td>
+            <td>{{emp.annualSalary | currency:'USD':true:'1.3-3'}}</td>
+            <td>{{emp.dateOfBirth| date:'fullDate' | lowercase }}</td>
+            <td>{{i}}</td>
+            <td>{{isFirst}}</td>
+            <td>{{isLast}}</td>
+            <td>{{isEven}}</td>
+            <td>{{isOdd}}</td>
+        </tr>
+    </tbody>
+
+</table>
+<br />
+<button (click)='getEmployeeList()'>Refresh Employee</button>

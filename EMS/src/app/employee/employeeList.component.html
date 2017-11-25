@@ -1,0 +1,57 @@
+﻿<div class="container-fluid">
+    <employee-count *ngIf="employees" [all]="getTotalEmployeeCount()"
+                    [male]="getTotalMaleEmployeeCount()"
+                    [female]="getTotalFemaleEmployeeCount()"
+                    (countRadioButtonSelectionChange)="onEmployeeCountRadioButtonChange($event)">
+    </employee-count>
+    <br />
+    <br />
+
+    <table class="table table-bordered">
+        <thead style="font-weight:bold">
+            <tr>
+                <td>Code</td>
+                <td>Name</td>
+                <td>Gender</td>
+                <td>Annual Salary</td>
+                <td>DOB</td>
+                <td>Primary Language</td>
+                <td>Action</td>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let emp of employees;">
+                <tr *ngIf="selectedEmployeeCountRadioButton=='All' ||
+                       selectedEmployeeCountRadioButton==emp.gender">
+                    <td><a [routerLink]="['/employee',emp.Id]">{{emp.code}}</a></td>
+                    <td>{{emp.firstName + ' ' + emp.lastName}}</td>
+                    <td>{{emp.gender}}</td>
+                    <td>{{emp.annualSalary}}</td>
+                    <td>{{emp.dateOfBirth}}</td>
+                    <td>{{emp.primaryLanguage}}</td>
+                    <td>
+                        <input type="button" class="btn btn-primary" value="Edit" [routerLink]="['/AddEmployee',emp.Id]" /> &nbsp;&nbsp;
+                        <input type="button" class="btn btn-primary" value="Delete" (click)="deleteEmployeeButtonClick(emp.Id)" />
+                    </td>
+                </tr>
+            </ng-container>
+            <tr *ngIf="!employees">
+                <td colspan="5">
+                    {{statusMessage}}
+                </td>
+            </tr>
+            <tr *ngIf="employees && employees.length==0">
+                <td colspan="5">
+                    No employee records to display
+                </td>
+            </tr>
+
+        </tbody>
+
+    </table>
+    <br />
+    <div style="margin-top:10px">
+        <input type="button" class="btn btn-primary" value="Add Employee" (click)="addEmployeeButtonClick()" />
+    </div>
+</div>
+
